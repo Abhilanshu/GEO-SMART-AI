@@ -71,7 +71,7 @@ export default function WhatsAppSimulator() {
          const finalLandmark = text;
          setReportData(prev => ({ ...prev, landmark: finalLandmark }));
          
-         await axios.post('http://localhost:5002/api/needs', {
+         await axios.post('https://geosmart-api.onrender.com/api/needs', {
             description: `WhatsApp Report: ${reportData.description || 'Visual Intel'}`,
             category: 'Earthquake',
             image: reportData.image || 'https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&q=80&w=1000',
@@ -289,3 +289,4 @@ export default function WhatsAppSimulator() {
     </div>
   );
 }
+

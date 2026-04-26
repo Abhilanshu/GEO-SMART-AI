@@ -43,7 +43,7 @@ export default function VolunteerRegistration() {
     if (!formData.name || formData.skills.length === 0) return alert("Please provide your name and skills.");
     setLoading(true);
     try {
-      await axios.post('http://localhost:5002/api/volunteers', {
+      await axios.post('https://geosmart-api.onrender.com/api/volunteers', {
         name: formData.name,
         skills: formData.skills,
         location: {
@@ -164,3 +164,4 @@ export default function VolunteerRegistration() {
     </div>
   );
 }
+

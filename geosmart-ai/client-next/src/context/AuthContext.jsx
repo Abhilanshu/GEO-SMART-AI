@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post('http://localhost:5002/api/auth/login', { email, password });
+    const res = await axios.post('https://geosmart-api.onrender.com/api/auth/login', { email, password });
     const { token, user } = res.data;
     localStorage.setItem('geosmart_token', token);
     localStorage.setItem('geosmart_user', JSON.stringify(user));
@@ -49,3 +49,4 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+

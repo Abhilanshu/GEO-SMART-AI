@@ -55,7 +55,7 @@ export default function CitizenReporterApp() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await axios.post('http://localhost:5002/api/needs', {
+      await axios.post('https://geosmart-api.onrender.com/api/needs', {
         description: `${category}: ${description}`,
         category,
         image,
@@ -169,3 +169,4 @@ export default function CitizenReporterApp() {
     </div>
   );
 }
+

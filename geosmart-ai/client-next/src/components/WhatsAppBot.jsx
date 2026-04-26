@@ -29,7 +29,7 @@ const WhatsAppBot = ({ onNeedCreated }) => {
     setIsTyping(true);
 
     try {
-      const response = await axios.post('http://localhost:5002/api/needs', { message: input });
+      const response = await axios.post('https://geosmart-api.onrender.com/api/needs', { message: input });
       
       setTimeout(() => {
         setIsTyping(false);
@@ -129,7 +129,7 @@ const WhatsAppBot = ({ onNeedCreated }) => {
                 setIsTyping(true);
                 
                 try {
-                  const response = await axios.post('http://localhost:5002/api/needs', { 
+                  const response = await axios.post('https://geosmart-api.onrender.com/api/needs', { 
                     image: base64,
                     phone: "919876543210"
                   });
@@ -171,3 +171,4 @@ const WhatsAppBot = ({ onNeedCreated }) => {
 };
 
 export default WhatsAppBot;
+

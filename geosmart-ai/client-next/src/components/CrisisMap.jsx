@@ -126,3 +126,4 @@ const CrisisMap = ({ needs = [], govtAlerts = [], onContact, showHeatmap = false
 };
 
 export default CrisisMap;
+

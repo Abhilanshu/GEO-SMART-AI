@@ -76,7 +76,7 @@ export default function NationalCommandDashboard() {
 
   useEffect(() => {
     setMounted(true);
-    socket = io('http://localhost:5002');
+    socket = io('https://geosmart-api.onrender.com');
     loadNeeds();
 
     socket.on('new_need', (newNeed) => {
@@ -93,14 +93,14 @@ export default function NationalCommandDashboard() {
 
   const loadNeeds = async () => {
     try {
-      const res = await axios.get('http://localhost:5002/api/needs');
+      const res = await axios.get('https://geosmart-api.onrender.com/api/needs');
       setNeeds(res.data);
     } catch (err) { console.error(err); }
   };
 
   const handleStatusUpdate = async (needId, newStatus) => {
      try {
-        await axios.patch(`http://localhost:5002/api/needs/${needId}`, { status: newStatus });
+        await axios.patch(`https://geosmart-api.onrender.com/api/needs/${needId}`, { status: newStatus });
         setNeeds(prev => prev.map(n => n._id === needId ? { ...n, status: newStatus } : n));
      } catch (err) { console.error("Update Error:", err); }
   };
@@ -371,4 +371,5 @@ const MapStat = ({ label, value, color, icon }) => (
     <div><div className={`text-2xl font-black ${color}`}>{value}</div><div className="text-[9px] uppercase font-black text-gray-500 tracking-[0.2em]">{label}</div></div>
   </div>
 );
+
 
