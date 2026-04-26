@@ -1,0 +1,30 @@
+services:
+  # Backend Node.js Server
+  - type: web
+    name: geosmart-api
+    env: node
+    rootDir: geosmart-ai/server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5002
+      # IMPORTANT: In your Render dashboard, you must set these two secrets:
+      # - MONGO_URI (Your MongoDB Atlas connection string)
+      # - GEMINI_API_KEY (Your Google Gemini API Key)
+
+  # Frontend Next.js Dashboard
+  - type: web
+    name: geosmart-dashboard
+    env: node
+    rootDir: geosmart-ai/client-next
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        # Once your backend is deployed, you'll put the Render backend URL here
+        value: https://geosmart-api.onrender.com
