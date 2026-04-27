@@ -1,19 +1,9 @@
-import withPWAInit from 'next-pwa';
-
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Ensure we don't have turbopack issues with next-pwa
-  webpack: (config) => {
-    return config;
-  },
+  // next-pwa removed for Render.com compatibility (build-time dev dep issue)
+  // PWA can be re-added after confirming build succeeds
+  output: 'standalone',
 };
 
-export default withPWA(nextConfig);
+export default nextConfig;
