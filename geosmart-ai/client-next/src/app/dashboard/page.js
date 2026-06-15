@@ -297,7 +297,14 @@ export default function NationalCommandDashboard() {
                     
                     {/* Feature 3: Live Drone Video Feed */}
                     <div className="mb-10 rounded-3xl overflow-hidden border border-white/10 relative shadow-2xl h-[400px] bg-black">
-                       <img src="https://images.unsplash.com/photo-1543285198-3af15c4592ce?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover opacity-60 saturate-50 mix-blend-luminosity" alt="Drone Feed" />
+                       <video 
+                          src="/Initial_Scene.mp4" 
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline 
+                          className="w-full h-full object-cover opacity-60 saturate-50 mix-blend-luminosity"
+                       />
                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 mix-blend-overlay"></div>
                        <div className="absolute inset-0 border-[1px] border-white/5 m-8 flex flex-col justify-between p-4 pointer-events-none">
                           <div className="flex justify-between items-start">
