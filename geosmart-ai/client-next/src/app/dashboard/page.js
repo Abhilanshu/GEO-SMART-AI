@@ -76,7 +76,7 @@ export default function NationalCommandDashboard() {
 
   useEffect(() => {
     setMounted(true);
-    socket = io('https://geosmart-api.onrender.com');
+    socket = io('http://localhost:5002');
     loadNeeds();
 
     socket.on('new_need', (newNeed) => {
@@ -93,14 +93,14 @@ export default function NationalCommandDashboard() {
 
   const loadNeeds = async () => {
     try {
-      const res = await axios.get('https://geosmart-api.onrender.com/api/needs');
+      const res = await axios.get('http://localhost:5002/api/needs');
       setNeeds(res.data);
     } catch (err) { console.error(err); }
   };
 
   const handleStatusUpdate = async (needId, newStatus) => {
      try {
-        await axios.patch(`https://geosmart-api.onrender.com/api/needs/${needId}`, { status: newStatus });
+        await axios.patch(`http://localhost:5002/api/needs/${needId}`, { status: newStatus });
         setNeeds(prev => prev.map(n => n._id === needId ? { ...n, status: newStatus } : n));
      } catch (err) { console.error("Update Error:", err); }
   };
@@ -228,8 +228,11 @@ export default function NationalCommandDashboard() {
                     <div className="grid gap-6">
                        {activeMissions.length === 0 && <div className="text-gray-500 font-bold uppercase text-sm">No verified field reports.</div>}
                        {activeMissions.map(need => (
-                          <div key={need._id} className="glass-card p-6 border-white/10 bg-white/5 flex gap-6 hover:bg-white/[0.08] transition-all">
-                             <div className="w-32 h-32 shrink-0 rounded-2xl overflow-hidden shadow-lg"><img src={need.image} className="w-full h-full object-cover" /></div>
+                          <div key={need._id} className="relative glass-card p-6 border-white/10 bg-white/5 flex gap-6 hover:bg-white/[0.08] transition-all">
+                             <button onClick={() => handleStatusUpdate(need._id, 'Resolved')} className="absolute top-4 right-4 p-2 bg-black/40 hover:bg-red-500/20 text-gray-400 hover:text-red-500 rounded-full transition-all" title="Remove Intel">
+                                <X size={16} />
+                             </button>
+                             <div className="w-32 h-32 shrink-0 rounded-2xl overflow-hidden shadow-lg"><img src={need.image || 'https://images.unsplash.com/photo-1543285198-3af15c4592ce?auto=format&fit=crop&q=80&w=400'} className="w-full h-full object-cover" alt="Intel" /></div>
                              <div className="flex-1 flex flex-col justify-center">
                                 <div className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-2">Verified Field Report</div>
                                 <p className="text-lg font-bold text-white leading-tight mb-2">{need.description}</p>

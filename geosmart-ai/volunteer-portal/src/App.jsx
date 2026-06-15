@@ -67,19 +67,44 @@ function App() {
            />
            
            <div className="max-w-md w-full mx-auto mt-12 text-center border-t border-white/10 pt-8">
-              <p className="text-xs uppercase tracking-widest text-gray-500 font-bold mb-6">Or quick-login as a registered hero:</p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                 {volunteers.map(v => (
-                   <button 
-                    key={v._id} 
-                    onClick={() => selectHero(v)}
-                    className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold hover:bg-primary/20 hover:border-primary/50 transition-all flex items-center gap-2"
-                   >
-                     <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                     {v.name}
-                   </button>
-                 ))}
-              </div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 font-bold mb-6">Or Login as a registered hero:</p>
+              <form 
+                 onSubmit={async (e) => {
+                    e.preventDefault();
+                    try {
+                       const res = await axios.post(`${API_URL}/auth/login`, {
+                          email: e.target.email.value,
+                          password: e.target.password.value
+                       });
+                       selectHero(res.data.user);
+                    } catch (err) {
+                       alert('Login failed: ' + (err.response?.data?.error || err.message));
+                    }
+                 }}
+                 className="flex flex-col gap-4 max-w-sm mx-auto"
+              >
+                 <input 
+                    name="email"
+                    type="email" 
+                    placeholder="Email Address" 
+                    required 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 focus:border-primary outline-none transition-all text-white text-sm"
+                 />
+                 <input 
+                    name="password"
+                    type="password" 
+                    placeholder="Password" 
+                    required 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 focus:border-primary outline-none transition-all text-white text-sm"
+                 />
+                 <button 
+                    type="submit"
+                    className="w-full py-3 bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl font-bold transition-all text-sm flex items-center justify-center gap-2"
+                 >
+                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                    Secure Login
+                 </button>
+              </form>
            </div>
         </div>
       )}

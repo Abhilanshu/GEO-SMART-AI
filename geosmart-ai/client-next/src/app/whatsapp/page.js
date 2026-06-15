@@ -71,13 +71,32 @@ export default function WhatsAppSimulator() {
          const finalLandmark = text;
          setReportData(prev => ({ ...prev, landmark: finalLandmark }));
          
-         await axios.post('https://geosmart-api.onrender.com/api/needs', {
+         let lat = 19.0760;
+         let lng = 72.8777;
+         if (reportData.location && reportData.location.startsWith('GPS: ')) {
+            const coords = reportData.location.replace('GPS: ', '').split(', ');
+            lat = parseFloat(coords[0]);
+            lng = parseFloat(coords[1]);
+         } else if (reportData.location) {
+            try {
+               // Try to geocode the city/sector they typed
+               const geoRes = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(reportData.location)}`);
+               if (geoRes.data && geoRes.data.length > 0) {
+                  lat = parseFloat(geoRes.data[0].lat);
+                  lng = parseFloat(geoRes.data[0].lon);
+               }
+            } catch (e) {
+               console.error("Geocoding failed", e);
+            }
+         }
+
+         await axios.post('http://localhost:5002/api/needs', {
             description: `WhatsApp Report: ${reportData.description || 'Visual Intel'}`,
             category: 'Earthquake',
             image: reportData.image || 'https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&q=80&w=1000',
             location: { 
                type: 'Point', 
-               coordinates: [72.8777, 19.0760], 
+               coordinates: { lat, lng }, 
                address: `${reportData.location} | LANDMARK: ${finalLandmark}` 
             },
             affectedPeople: 1

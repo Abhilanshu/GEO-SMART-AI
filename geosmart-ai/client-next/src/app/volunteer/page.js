@@ -8,6 +8,8 @@ import axios from 'axios';
 export default function VolunteerRegistration() {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
+    password: '',
     skills: [],
     locationName: 'Detecting Location...',
     lat: 28.6139,
@@ -40,11 +42,14 @@ export default function VolunteerRegistration() {
   };
 
   const handleSubmit = async () => {
-    if (!formData.name || formData.skills.length === 0) return alert("Please provide your name and skills.");
+    if (!formData.name || !formData.email || !formData.password || formData.skills.length === 0) return alert("Please provide all details.");
     setLoading(true);
     try {
-      await axios.post('https://geosmart-api.onrender.com/api/volunteers', {
+      await axios.post('http://localhost:5002/api/auth/register', {
         name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: 'Volunteer',
         skills: formData.skills,
         location: {
            address: formData.locationName,
@@ -58,7 +63,7 @@ export default function VolunteerRegistration() {
       }, 3000);
     } catch (err) {
       console.error(err);
-      alert("Registration failed. Check server.");
+      alert("Registration failed: " + (err.response?.data?.error || err.message));
     } finally {
       setLoading(false);
     }
@@ -98,6 +103,24 @@ export default function VolunteerRegistration() {
                               value={formData.name} 
                               onChange={(e) => setFormData({...formData, name: e.target.value})}
                               placeholder="e.g. Rahul Sharma" 
+                              className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 outline-none focus:border-primary font-bold text-lg text-white" 
+                           />
+                           
+                           <label className="text-[10px] font-black uppercase text-gray-500 tracking-widest block mt-4">Email Address</label>
+                           <input 
+                              type="email" 
+                              value={formData.email} 
+                              onChange={(e) => setFormData({...formData, email: e.target.value})}
+                              placeholder="rahul@example.com" 
+                              className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 outline-none focus:border-primary font-bold text-lg text-white" 
+                           />
+                           
+                           <label className="text-[10px] font-black uppercase text-gray-500 tracking-widest block mt-4">Password</label>
+                           <input 
+                              type="password" 
+                              value={formData.password} 
+                              onChange={(e) => setFormData({...formData, password: e.target.value})}
+                              placeholder="••••••••" 
                               className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 outline-none focus:border-primary font-bold text-lg text-white" 
                            />
                         </div>

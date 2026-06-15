@@ -14,6 +14,18 @@ const VolunteerRegistration = ({ onComplete }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  React.useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        setFormData(prev => ({ 
+          ...prev, 
+          lat: pos.coords.latitude, 
+          lng: pos.coords.longitude 
+        }));
+      });
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
