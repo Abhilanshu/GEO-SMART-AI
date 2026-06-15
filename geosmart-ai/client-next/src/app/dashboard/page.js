@@ -206,31 +206,6 @@ export default function NationalCommandDashboard() {
                        <MapStat label="Verified Missions" value={activeMissions.length} color="text-red-500" icon={<Activity size={14}/>} />
                        <MapStat label="Detected Threats" value={govtAlerts.length} color="text-yellow-500" icon={<ShieldAlert size={14}/>} />
                     </div>
-                    {/* Floating Live Video Uplink Feed */}
-                    <div className="absolute top-6 right-6 z-[1000] w-80 rounded-2xl overflow-hidden border border-white/10 bg-black/80 backdrop-blur-md shadow-2xl flex flex-col">
-                       <div className="p-3 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                          <div className="flex items-center gap-2">
-                             <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                             <span className="text-[10px] font-black uppercase tracking-widest text-red-500">LIVE FEED</span>
-                          </div>
-                          <span className="text-[9px] font-mono text-gray-500">CAM-01 / ACTIVE</span>
-                       </div>
-                       <div className="relative h-44 bg-black">
-                          <video 
-                             src="/Initial_Scene.mp4" 
-                             autoPlay 
-                             loop 
-                             muted 
-                             playsInline 
-                             className="w-full h-full object-cover opacity-70"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                          <div className="absolute bottom-3 left-3 flex flex-col pointer-events-none">
-                             <span className="text-[10px] font-black text-white leading-none">UPLINK ACTIVE</span>
-                             <span className="text-[8px] font-bold text-gray-400 mt-1 uppercase tracking-widest">TACTICAL MULTI-CAM</span>
-                          </div>
-                       </div>
-                    </div>
                     {/* Feature 2: Predictive Heatmap Toggle */}
                     <div className="absolute bottom-6 right-6 z-[1000]">
                        <button onClick={() => setShowHeatmap(!showHeatmap)} className={`px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl transition-all flex items-center gap-3 border ${showHeatmap ? 'bg-red-600 text-white border-red-500 shadow-red-600/30' : 'bg-black/60 backdrop-blur-md text-gray-400 border-white/10 hover:text-white'}`}>
