@@ -104,7 +104,14 @@ export default function LandingPage() {
             <div className="relative">
                <div className="absolute inset-0 bg-primary/20 blur-[120px] rounded-full" />
                <div className="relative glass-card p-4 bg-white/5 border-white/10 rounded-[40px] shadow-2xl">
-                  <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" className="w-full rounded-[28px] brightness-75 contrast-125 saturate-50" alt="Satellite View" />
+                  <video 
+                     src="/Initial_Scene.mp4" 
+                     autoPlay 
+                     loop 
+                     muted 
+                     playsInline 
+                     className="w-full rounded-[28px] brightness-75 contrast-125 saturate-50 object-cover aspect-video"
+                  />
                   <div className="absolute top-10 right-10 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 flex items-center gap-3">
                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                      <span className="text-[10px] font-black uppercase tracking-widest text-white">IMD Telemetry Active</span>
