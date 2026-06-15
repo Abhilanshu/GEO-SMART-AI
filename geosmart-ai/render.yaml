@@ -3,6 +3,7 @@ services:
   - type: web
     name: geosmart-api
     env: node
+    plan: free
     rootDir: geosmart-ai/server
     buildCommand: npm install
     startCommand: node index.js
@@ -19,6 +20,7 @@ services:
   - type: web
     name: geosmart-dashboard
     env: node
+    plan: free
     rootDir: geosmart-ai/client-next
     buildCommand: npm install && npm run build
     startCommand: npm start
@@ -28,3 +30,4 @@ services:
       - key: NEXT_PUBLIC_API_URL
         # Once your backend is deployed, you'll put the Render backend URL here
         value: https://geosmart-api.onrender.com
+
